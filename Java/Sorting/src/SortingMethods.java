@@ -8,6 +8,8 @@ public class SortingMethods {
     public static <T extends Comparable<T>> void selectionSort(T[] array){
         for(int i = 0; i < array.length - 1; i++){
             for(int j = i + 1; j < array.length; j++){
+                // If element at j is less than element
+                // at i, then swap
                 if(array[j].compareTo(array[i]) < 0){
                     T temp = array[i];
                     array[i] = array[j];
@@ -26,6 +28,7 @@ public class SortingMethods {
         do{
             exchanges = false;
             for(int i = 0; i < array.length - pass; i++){
+                // If element at i is greater than element at i+1
                 if(array[i].compareTo(array[i+1]) > 0){
                     // swap the elements at the indices
                     T temp = array[i];
@@ -58,7 +61,7 @@ public class SortingMethods {
         // Value at the position.
         T value = array[position];
         // Find the position where the value belongs, and shift every element
-        // over to create an open index for that and place the element there.
+        // over to create an open index for that and place value there.
         while(position > 0 && value.compareTo(array[position - 1]) < 0){
             array[position] = array[position - 1];
             position--;
@@ -71,12 +74,14 @@ public class SortingMethods {
      *  @param array The array to be sorted
      */
     public static <T extends Comparable<T>> void shellSort(T[] array){
+        // Gap between adjacent elements
         int gap = array.length / 2;
         while(gap > 0){
             for(int position = gap; position < array.length; position++){
+                // Insert element at position in its sub-array
                 shellSortInsertion(array, position, gap);
             }
-
+            // Reset gap for next pass
             if(gap == 2){
                 gap = 1;
             }
@@ -92,10 +97,13 @@ public class SortingMethods {
      *  @param gap The gap between the elements in the sub-array being compared
      */
     private static <T extends Comparable<T>> void shellSortInsertion(T[] array, int position, int gap){
+        // Element to insert
         T value = array[position];
-
+        // Shift all values > value in sub-array down by gap
         while(position > gap - 1 && value.compareTo(array[position - gap]) < 0){
+            // First element not shifted
             array[position] = array[position - gap];
+            // Shift down
             position -= gap;
         }
         array[position] = value;
@@ -125,15 +133,15 @@ public class SortingMethods {
      *  @param right The right sub-array
      */
     private static <T extends Comparable<T>> void merge(T[] output, T[] left, T[] right){
-        int o = 0; // index for output array
-        int l = 0; // index for left array
-        int r = 0; // index for right array
+        int o = 0; // Index for output array
+        int l = 0; // Index for left array
+        int r = 0; // Index for right array
 
         while(l < left.length && r < right.length){
-            // if the element at index n in the left array
-            // is less than the element at index m in the
-            // right array add the element at index n of the
-            // left array, else add the element at index m
+            // If the element at index l in the left array
+            // is less than the element at index r in the
+            // right array add the element at index l of the
+            // left array, else add the element at index r
             // of the right array
             if(left[l].compareTo(right[r]) < 0){
                 output[o++] = left[l++];
@@ -218,6 +226,7 @@ public class SortingMethods {
      *  @param array The array to be sorted
      */
     public static <T extends Comparable<T>> void quickSort(T[] array){
+        // Call quickSort recursive method
         quickSort(array, 0, array.length - 1);
     }
 
@@ -246,6 +255,7 @@ public class SortingMethods {
         threeSort(array, first, last);
         swap(array, first, (first + last) / 2);
 
+        // Pivot value
         T piv = array[first];
         int up = first;
         int down = last;

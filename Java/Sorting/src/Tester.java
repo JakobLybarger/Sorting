@@ -8,7 +8,7 @@ public class Tester {
         double start;
         double end;
 
-        Integer[] arr = new Integer[100000];
+        Integer[] arr = new Integer[10000];
         setArray(arr);
 
         Integer[] arr2 = Arrays.copyOf(arr, arr.length);
